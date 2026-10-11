@@ -1,14 +1,14 @@
 {
-  "name": "QuestAday",
-  "short_name": "QuestAday",
+  "name": "QuestAday (personal)",
+  "short_name": "QuestAday*",
   "description": "QuestAday task planner: a cozy RPG quest journal for real life.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#12111c",
-  "theme_color": "#12111c",
+  "background_color": "#3b2416",
+  "theme_color": "#3b2416",
   "categories": [
     "productivity",
     "lifestyle"
