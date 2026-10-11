@@ -1,7 +1,7 @@
 {
-  "name": "QuestDay",
-  "short_name": "QuestDay",
-  "description": "A cozy RPG quest journal for real life.",
+  "name": "QuestAday",
+  "short_name": "QuestAday",
+  "description": "QuestAday task planner: a cozy RPG quest journal for real life.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
