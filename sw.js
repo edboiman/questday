@@ -6,8 +6,8 @@
  * cross-origin requests, and makes no requests of its own beyond fetching the
  * app's files from the origin it was installed from.
  */
-const CACHE = 'app-shell-9e4de342cc45bc24';
-const ASSETS = ["./app-D7XQGDJ4.css","./app-XGZNMYDG.js","./favicon.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./manifest.webmanifest","./maskable-512.png"];
+const CACHE = 'app-shell-fcfc241fc12f3074';
+const ASSETS = ["./app-JFAJ3SUI.js","./app-Q2PBLXY5.css","./favicon.svg","./fibres.svg","./flourish.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./lora-italic-variable.woff","./lora-variable.woff","./manifest.webmanifest","./maskable-512.png","./paper.svg"];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
