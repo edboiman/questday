@@ -6,18 +6,33 @@
  * cross-origin requests, and makes no requests of its own beyond fetching the
  * app's files from the origin it was installed from.
  */
-const CACHE = 'app-shell-3e8a4f4defff77e4';
-const ASSETS = ["./THREE-LICENSE.txt","./app-5TKPXOAW.css","./app-ACY3NEDB.js","./favicon.svg","./fibres.svg","./flourish.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./lora-italic-variable.woff","./lora-variable.woff","./manifest.webmanifest","./maskable-512.png","./paper.svg"];
+// Different GitHub Pages projects share an origin. Keep their caches separate.
+const PREFIX = `app-shell-${encodeURIComponent(self.registration.scope)}-`;
+const CACHE = `${PREFIX}24c16bb70cc39316`;
+const ASSETS = ["./THREE-LICENSE.txt","./app-KKSDWF7N.js","./app-WNDVWA2L.css","./favicon.svg","./fibres.svg","./flourish.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./lora-italic-variable.woff","./lora-variable.woff","./manifest.webmanifest","./maskable-512.png","./paper.svg"];
+const INDEX = new URL('./index.html', self.registration.scope).href;
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
+  event.waitUntil((async () => {
+    try {
+      const cache = await caches.open(CACHE);
+      await cache.addAll(ASSETS.map((url) => new Request(url, { cache: 'reload' })));
+    } catch (error) {
+      // Incomplete uploads never become the active offline version.
+      await caches.delete(CACHE);
+      throw error;
+    }
+  })());
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       for (const key of await caches.keys()) {
-        if (key.startsWith('app-shell-') && key !== CACHE) await caches.delete(key);
+        if (key === CACHE || !key.startsWith('app-shell-')) continue;
+        // Migrate legacy caches only if they actually contain this app's entry page.
+        const belongsHere = key.startsWith(PREFIX) || Boolean(await (await caches.open(key)).match(INDEX));
+        if (belongsHere) await caches.delete(key);
       }
       await self.clients.claim();
     })(),
@@ -32,11 +47,12 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
-  if (new URL(request.url).origin !== self.location.origin) return;
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin || !url.pathname.startsWith(new URL(self.registration.scope).pathname)) return;
   event.respondWith(
     (async () => {
       const cache = await caches.open(CACHE);
-      if (request.mode === 'navigate') return (await cache.match('./index.html')) ?? fetch(request);
+      if (request.mode === 'navigate') return (await cache.match(INDEX)) ?? fetch(request);
       return (await cache.match(request, { ignoreSearch: true })) ?? fetch(request);
     })(),
   );
