@@ -1,0 +1,42 @@
+{
+  "name": "questday",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "QuestAday: a storybook quest journal for real life. Local-first, offline, optional sync.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "start:lan": "node scripts/serve.mjs --lan",
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --import ./scripts/test-env.mjs --test \"src/**/*.test.ts\"",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "e2e": "node e2e/smoke.mjs",
+    "verify": "npm run typecheck && npm test && npm run build && npm run check:bundle && npm run build:personal && npm run check:bundle:personal",
+    "build:personal": "node scripts/build.mjs --personal",
+    "start:personal": "node scripts/serve.mjs --personal",
+    "check:bundle:personal": "node scripts/check-bundle.mjs --personal",
+    "e2e:personal": "node e2e/personal.mjs",
+    "test:db": "bash supabase/tests/run.sh"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.186.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "26.2.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@types/three": "0.186.0",
+    "esbuild": "0.28.2",
+    "playwright-core": "1.56.0",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3"
+  }
+}
