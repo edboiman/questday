@@ -8,8 +8,8 @@
  */
 // Different GitHub Pages projects share an origin. Keep their caches separate.
 const PREFIX = `app-shell-${encodeURIComponent(self.registration.scope)}-`;
-const CACHE = `${PREFIX}24c16bb70cc39316`;
-const ASSETS = ["./THREE-LICENSE.txt","./app-KKSDWF7N.js","./app-WNDVWA2L.css","./favicon.svg","./fibres.svg","./flourish.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./lora-italic-variable.woff","./lora-variable.woff","./manifest.webmanifest","./maskable-512.png","./paper.svg"];
+const CACHE = `${PREFIX}qav2-20261025`;
+const ASSETS = ["./THREE-LICENSE.txt","./app-QAV2.js","./app-QAV2.css","./favicon.svg","./fibres.svg","./flourish.svg","./icon-180.png","./icon-192.png","./icon-512.png","./index.html","./lora-italic-variable.woff","./lora-variable.woff","./manifest.webmanifest","./maskable-512.png","./paper.svg"];
 const INDEX = new URL('./index.html', self.registration.scope).href;
 
 self.addEventListener('install', (event) => {
